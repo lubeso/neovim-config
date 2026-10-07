@@ -25,11 +25,12 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- Setting this to nil or empty ensures base16 takes over
+      -- Setting this to empty ensures base16 takes over
       colorscheme = function() end,
     },
   },
 
+  -- Tiltfile LSP
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -39,35 +40,40 @@ return {
     },
   },
 
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
-  -- would overwrite `ensure_installed` with the new value.
-  -- If you'd rather extend the default config, use the code below instead:
+  -- Treesitter: ensure required parsers are installed without overriding setup config
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      -- add tsx and treesitter
+      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "starlark",
         "tsx",
         "typescript",
+        "javascript",
+        "html",
+        "css",
+        "scss",
+        "elixir",
+        "heex",
+        "eex",
       })
     end,
-    config = function()
+    init = function()
       vim.treesitter.language.register("starlark", "tiltfile")
     end,
   },
 
-  -- add any tools you want to have installed below
+  -- Base developer tools installed via Mason
   {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "flake8",
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
         "stylua",
         "shellcheck",
         "shfmt",
         "tilt",
-      },
-    },
+      })
+    end,
   },
 }

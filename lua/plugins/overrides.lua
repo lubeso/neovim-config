@@ -56,6 +56,10 @@ return {
         "elixir",
         "heex",
         "eex",
+        "python",
+        "toml",
+        "ninja",
+        "rst",
       })
     end,
     init = function()
@@ -73,6 +77,10 @@ return {
         "shellcheck",
         "shfmt",
         "tilt",
+        "pyright",
+        "ruff",
+        "debugpy",
+        "taplo",
       })
     end,
   },

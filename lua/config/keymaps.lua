@@ -24,9 +24,10 @@ map("n", "<leader>tS", function()
   require("neotest").run.stop()
 end, { desc = "Stop Running Test" })
 
--- TypeScript / React: Organize Imports
+-- Organize Imports (TypeScript/React & Python)
 map("n", "<leader>co", function()
-  if vim.bo.filetype == "typescript" or vim.bo.filetype == "typescriptreact" then
+  local ft = vim.bo.filetype
+  if ft == "typescript" or ft == "typescriptreact" then
     vim.lsp.buf.code_action({
       apply = true,
       context = {
@@ -34,8 +35,16 @@ map("n", "<leader>co", function()
         diagnostics = {},
       },
     })
+  elseif ft == "python" then
+    vim.lsp.buf.code_action({
+      apply = true,
+      context = {
+        only = { "source.organizeImports" },
+        diagnostics = {},
+      },
+    })
   end
-end, { desc = "Organize Imports (TS/React)" })
+end, { desc = "Organize Imports" })
 
 -- Quick Alternate File toggle (works with vim-projectionist)
 map("n", "<leader>a", "<cmd>A<cr>", { desc = "Toggle Alternate File (LiveView <-> Template <-> Test)" })

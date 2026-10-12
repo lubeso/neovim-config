@@ -46,5 +46,5 @@ map("n", "<leader>co", function()
   end
 end, { desc = "Organize Imports" })
 
--- Quick Alternate File toggle (works with vim-projectionist)
-map("n", "<leader>a", "<cmd>A<cr>", { desc = "Toggle Alternate File (LiveView <-> Template <-> Test)" })
+-- Alternate File toggle (works with vim-projectionist)
+map("n", "<leader>fa", "<cmd>A<cr>", { desc = "Alternate File (Source <-> Test)" })
